@@ -5,33 +5,32 @@ using namespace std;
 int StringLength(char str[]);
 
 void to_upper(char str[]);
+void to_lower(char str[]);
 void shrink(char str[]);
 bool is_palindrome(char str[]);
 
 void main()
 {
-	//for (int i = 0; i < 256; i++)cout << i << "\t" << (char)i << endl;
-	cout << 'A' << "\t" << 'a' << endl;
-	cout << (int)'A' << "\t" << (int)'a' << endl;
-	cout << 'A' - 'a' << endl;
 	setlocale(LC_ALL, "Rus");
-	//char str[] = { 'H', 'e', 'l', 'l', 'o', 0 };
-	//char str[] = "Hello";
-	const int n = 256;
-	//char str[n] = "Хорошо       живет    на   свете         Винни-пух";
-	char str[n] = "Аргентина манит негра";
-	//cout << "Введите строку: ";
-	//cin >> str;
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	//cin.getline(str, n); //принимает строку и размер строки, str - строка, n - размер строки
-	cout << str << endl;
+	const int n = 256;
+	char str[n]{};
+	cout << "Введите строку: ";
+	cin.getline(str, n); //можно ввести строку с пробелами
 	cout << "Длина введенной строки: " << StringLength(str) << " символов" << endl;
-	//to_upper(str);
-	shrink(str);
+	to_upper(str);
+	cout << "Верхний регистр: " << str << endl;
+	to_lower(str);
+	cout << "Нижний регистр: " << str << endl;
+	
+	
+	
+	//char str[n] = "Хорошо       живет    на   свете         Винни-пух";
+	/*shrink(str);
 	cout << str << endl;
 	cout << "Строка " <<( is_palindrome(str) ? "" : "не " )<< "является палиндромом" << endl;
-	cout << str << endl;
+	cout << str << endl;*/
 
 }
 
@@ -43,6 +42,18 @@ int StringLength(char str[])
 }
 
 void to_upper(char str[])
+{
+	for (int i = 0; str[i]; i++)
+	{
+		if (      //Если 
+			str[i] >= 'a' && str[i] <= 'z' || //элемент строки маленькая английская буква или
+			str[i] >= 'а' && str[i] <= 'я' //маленькая русская буква
+			)
+			str[i] -= 32; //то переводим его в верхний регистр
+	}
+}
+
+void to_lower(char str[])
 {
 	for (int i = 0; str[i]; i++)
 	{
