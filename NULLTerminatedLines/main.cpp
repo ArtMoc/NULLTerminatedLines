@@ -17,7 +17,7 @@ int hex_to_dec(char str[]);
 
 void main()
 {
-	setlocale(LC_ALL, "Rus");
+	setlocale(LC_ALL, "");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	const int n = 256;
