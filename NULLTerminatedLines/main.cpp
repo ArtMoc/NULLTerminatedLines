@@ -1,9 +1,10 @@
 #include <iostream>
-using namespace std;
 #include <Windows.h>
+#include <string.h>
+#include <cmath>
 
+using namespace std;
 int StringLength(char str[]);
-
 void to_upper(char str[]);
 void to_lower(char str[]);
 void shrink(char str[]);
@@ -17,7 +18,7 @@ int hex_to_dec(char str[]);
 
 void main()
 {
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, ""); 
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	const int n = 256;
