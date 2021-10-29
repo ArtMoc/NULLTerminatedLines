@@ -11,7 +11,9 @@ bool is_palindrome(char str[]);
 bool is_int_number(char str[]);
 bool is_bin_number(char str[]);
 bool is_hex_number(char str[]);
-
+int to_int_number(char str[]);
+int bin_to_dec(char str[]);
+int hex_to_dec(char str[]);
 
 void main()
 {
@@ -37,12 +39,15 @@ void main()
 	cout << "Введите строку: ";
 	cin.getline(str, n);
 	cout << "Строка " <<( is_int_number(str) ? "" : "не " )<< "является целым десятичным числом" << endl;
+	cout << "Значение этого числа: " << to_int_number(str) << endl;
 	cout << "Введите строку: ";
 	cin.getline(str, n);
 	cout << "Строка " << (is_bin_number(str) ? "" : "не ") << "является целым двоичным числом" << endl;
+	cout << "Значение этого числа в десятичном формате: " << bin_to_dec(str) << endl;
 	cout << "Введите строку: ";
 	cin.getline(str, n);
 	cout << "Строка " << (is_hex_number(str) ? "" : "не ") << "является целым шестнадцатиричным числом" << endl;
+	cout << "Значение этого числа: " << hex_to_dec(str) << endl;
 }
 
 int StringLength(char str[])
@@ -78,7 +83,7 @@ void shrink(char str[])
 {
 	for (int i = 0; str[i]; i++)
 	{
-		while (str[i] == ' ' && str[i + 1] == ' ')
+		while (str[i] == ' ' && (str[i + 1] == ' ' || str[i + 1] == 0))
 		{
 			for (int j = i; str[j]; j++)str[j] = str[j + 1];
 		}
@@ -127,7 +132,7 @@ bool is_bin_number(char str[])
 {
 	{
 		int n = strlen(str);
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < n - 1; i++)
 		{
 			if ((str[i] < '0' || str[i] > '1') && str[n - 1] != 'b') return false;
 		}
@@ -139,9 +144,51 @@ bool is_hex_number(char str[])
 	int n = strlen(str);
 	for (int i = 0; i < n; i++)
 	{
-		if ((str[i] < '0' || (str[i] > '9' && str[i] < 'a') || str[i] > 'f')) return false;
+		if (str[i] < '0' || (str[i] > '9' && str[i] < 'a') || str[i] > 'f' && str[i] < 'A' || str[i] > 'F') return false;
 	}
 	return true;
 }
 
+int to_int_number(char str[])
+{
+	int sum = 0;
+	int n = strlen(str);
+	if (is_int_number(str))
+	{
+		for (int i = 0; i < n; i++)
+		{
+			sum = sum + ((str[i] - 48) * pow(10, n - 1 - i));
+		}
+		return sum;
+	}
+	else return 0;
+}
+int bin_to_dec(char str[])
+{
+	int sum = 0;
+	int n = strlen(str);
+	if (is_bin_number(str))
+	{
+		for (int i = 0; i < n - 1; i++)
+		{
+			sum = sum + ((str[i] - 48) * pow(2, n - 2 - i));
+		}
+		return sum;
+	}
+	else return 0;
+}
+int hex_to_dec(char str[])
+{
+	int sum = 0;
+	int n = strlen(str);
+	if (is_hex_number(str))
+	{
+		for (int i = 0; i < n - 1; i++)
+		{
+			sum = sum + (str[i] - ((str[i] >= 'A' && str[i] <= 'F') ? 55 : (str[i] >= 'a' && str[i] <= 'f') ? ('a' - 10) : 48)) * pow(16, n - 2 - i);
+		}
+		return sum;
+	}
+	else return 0;
+}
 
